@@ -1,0 +1,45 @@
+@model rpsdyna.Models.GameModel
+
+<div class="alert alert-info">
+    @if (Model != null)
+    {
+        <h4 style="color: @(Model.Result != null && Model.Result.Contains("You win this round!") ? "green" :
+                            Model.Result != null && Model.Result.Contains("IGOR wins this round!") ? "red" :
+                            Model.Result != null && Model.Result.Contains("It's a tie!") ? "grey" :
+                            "black")">
+            @Model.Result
+        </h4>
+        <p><strong>Your choice:</strong> @(Model.PlayerChoice ?? "Not chosen")</p>
+        @if (Model.IsBluffing)
+        {
+            <p><strong>You bluffed with:</strong> @(Model.BluffChoice ?? "Not bluffed")</p>
+        }
+        @if (!Model.IsBluffing)
+        {
+            <p><strong>IGOR's choice:</strong> @(Model.ComputerChoice ?? "Not chosen")</p>
+        }
+
+        @if (!Model.GameOver)
+        {
+            <p>Your Health: @Model.PlayerHealth</p>
+            <p>IGOR's Health: @Model.ComputerHealth</p>
+        }
+        else
+        {
+            <p><strong>Igor peers at you with the widest grin</strong></p>
+        }
+
+        <!-- Bluff Stage -->
+        <div id="bluff-stage" style="display:none; margin-top:20px;">
+            <h4>Would you like to bluff?</h4>
+            <button class="btn brick-button brick-rock" onclick="announceBluff('Rock')">Bluff with Rock</button>
+            <button class="btn brick-button brick-paper" onclick="announceBluff('Paper')">Bluff with Paper</button>
+            <button class="btn brick-button brick-scissors" onclick="announceBluff('Scissors')">Bluff with Scissors</button>
+            <button class="btn brick-button brick-no-bluff" onclick="continueGame()">No Bluff</button>
+        </div>
+    }
+    else
+    {
+        <p>Game data is not available.</p>
+    }
+</div>

@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "It Begins";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <p>
+        You head towards the gate, You need to leave this sinister town as soon as possible. One thing stands in your way,
+        IGOR. He says the strangest thing ; you can only leave once you beat him at his favorite game.
+        The game you ask?
+
+        Rock-Paper-Scissors....
+
+    </p>
+    <p>
+        Will you take the challenge and see where the fates lead you?
+    </p>
+    <button class="btn btn-lg btn-primary" onclick="location.href='@Url.Action("Index", "Home")'">Continue to the Game</button>
+</div>

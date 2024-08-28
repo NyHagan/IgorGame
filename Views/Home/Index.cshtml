@@ -1,0 +1,99 @@
+﻿@model rpsdyna.Models.GameModel
+
+@{
+    ViewData["Title"] = "Rock Paper Scissors";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    
+     <!-- Game Stage -->
+    <div id="game-stage" @(Model.GameOver ? "style='display:none;'" : "")>
+        <h3>Make a decision</h3>
+        <button class="btn brick-button" onclick="playGame('Rock')" @(Model.GameOver || Model.BluffAnnounced ? "disabled" : "")>Rock</button>
+        <button class="btn brick-button" onclick="playGame('Paper')" @(Model.GameOver || Model.BluffAnnounced ? "disabled" : "")>Paper</button>
+        <button class="btn brick-button" onclick="playGame('Scissors')" @(Model.GameOver || Model.BluffAnnounced ? "disabled" : "")>Scissors</button>
+    </div>
+
+    <!-- Result Container -->
+    <div id="result-container" style="margin-top:20px;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <!-- Game Over Controls -->
+    <div id="game-over-controls" style="display:none; margin-top:20px;">
+        <h3>Game Over!</h3>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Start", "Home")'">Restart Game</button>
+    </div>
+    <audio id="background-audio" autoplay loop>
+    <source src="~/audio/music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+</div>
+
+@section Scripts {
+    <script>
+        function playGame(playerChoice) {
+            $('#game-stage').hide();
+            $('#result-container').html('<h3>IGOR is thinking...</h3>');
+
+            setTimeout(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Play", "Home")',
+                    data: { playerChoice: playerChoice },
+                    success: function (result) {
+                        $('#result-container').html(result);
+                        if ($('#result-container').find('p:contains("Igor peers at you with the widest grin")').length > 0) {
+                            $('#bluff-stage').hide();
+                            $('#game-over-controls').show();
+                        } else {
+                            $('#bluff-stage').show();
+                        }
+                    }
+                });
+            }, 3000);
+        }
+
+        function announceBluff(bluffChoice) {
+            $('#bluff-stage').hide();
+            $('#result-container').html('<h3>IGOR thinks you might use ' + bluffChoice + ' next round...</h3>');
+
+            setTimeout(function () {
+                // Simulate bluff success with a 55% success rate
+                var bluffSuccess = Math.random() < 0.55;
+
+                if (bluffSuccess) {
+                    // Bluff succeeded
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Play", "Home")',
+                        data: { bluffChoice: bluffChoice, bluffAnnounced: true },
+                        success: function (result) {
+                            $('#result-container').html(result);
+                            $('#game-stage').show();
+                        }
+                    });
+                } else {
+                    // Bluff failed
+                    $('#result-container').html("<h3>IGOR isn't convinced...</h3>");
+
+                    setTimeout(function () {
+                        $('#result-container').html('');
+                        $('#game-stage').show();
+                    }, 2000); // 2-second delay before the next round
+                }
+            }, 2000); // Short delay for bluff announcement
+        }
+
+        function continueGame() {
+            $('#bluff-stage').hide();
+            $('#result-container').html('<h3>Get ready for the next round...</h3>');
+
+            setTimeout(function () {
+                $('#result-container').html('');
+                $('#game-stage').show();
+            }, 2000); // 2-second delay before the next round
+        }
+    </script>
+}
