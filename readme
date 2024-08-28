@@ -1,0 +1,112 @@
+# Igor of the Gate
+
+Igor of the gate is a simple rock paper scissors game where the aim is to get your opponent's health down to zero before yours does. You play a series of rounds of rock paper scissors,with the option to influence Igor's potential choice by bluffing. You can try to convince Igor of your next choice which he may or may not believe. 
+
+![App Screenshot](/wwwroot/images/screenshot-1.png)
+
+# User Experience
+
+## Project Goals
+To create a simple interactive game that utilizes C#, ASP.NET core, Javascript, html, CSS, Bootstrap and external media assets.
+
+
+
+## Site Admin Goals
+* As the site admin, I want the main page of the site to convey as much necessary information as possible about the nature and purpose of the site.
+
+
+## Design Choices
+I wanted the site to have a welcoming feel for all ages , and so went with a colour scheme I believe would be best for this. I gave the main area where data would be input a more bright feel, so that it would be the area noticed first upon entering the site.
+
+
+
+## FONTS
+The main fonts used were Shizuru, Mali, and Sorts Mill Goudy, From Google Fonts.
+I felt these three complemented each other, Shizuru gives the title a playful feel while Mali and Sorts Mill Goudy add a more refined look to the page.
+
+
+## TECHNOLOGIES USED
+
+- HTML
+- CSS
+- JAVASCRIPT
+- C#
+
+# Libraries/Frameworks used
+
+- ASP.NET core
+- Bootstrap : To help create a mobile first approach
+- Github : To store my repositories
+- Git : Allowed me to push my work to the repository
+
+# Running Tests
+
+tests were done after every change, leading to the removal of several bugs
+
+
+## BUGS
+
+1. **Bug 1:** `GameModel` class wasn't recognized in the `rpsdyna.Models` namespace, causing build failures in Razor views.  
+   **Solution:** Ensured `GameModel` was correctly defined, included in the project, and matched across files.
+
+2. **Bug 2:** `NullReferenceException` when rendering a Razor view.  
+   **Solution:** Ensured `GameModel` properties were initialized and not null when passed to the view.
+
+3. **Bug 3:** `fatal: the remote end hung up unexpectedly` error during GitHub push.  
+   **Solution:** Checked remote URL, increased Git buffer size, which fixed the issue.
+
+4. **Bug 4:** 404 error when accessing the “About” page.  
+   **Solution:** Verified correct route and controller/action setup for the “About” page.
+
+5. **Bug 5:** IGOR continued to make decisions based on a failed bluff.  
+   **Solution:** Updated controller logic so IGOR reverts to random choices after a failed bluff.
+
+6. **Bug 6:** Bluff success rate was too high.  
+   **Solution:** Modified the bluff success probability in the JavaScript function from 75% to 55%.
+
+7. **Bug 7:** Both bluff and non-bluff messages were displayed together.  
+   **Solution:** Adjusted JavaScript to show the bluff announcement only when the bluff succeeds.
+
+8. **Bug 8:** IGOR’s move was determined after the player’s choice, affecting bluffing.  
+   **Solution:** Modified logic so IGOR’s move is determined before the player’s choice during bluffing.
+
+9. **Bug 9:** Bluff-related properties weren't reset after each round, causing issues.  
+   **Solution:** Reset bluff-related properties at the end of each round to avoid affecting subsequent rounds.
+
+10. **Bug 10:** Game termination condition wasn’t clearly managed, and “Would you like to bluff?” persisted even when the game was over.  
+    **Solution:** Implemented an `IsGameOver` property in `GameService` to encapsulate and manage game termination.
+
+11. ** **Bug 11:** Game got stuck on the “Igor thinks you might use” screen.  
+    **Solution:** Added `!= null` to the `if` condition to allow the transition to execute, fixing the issue.
+
+
+### Timeline
+- Repository was located after logging in : https://github.com/NyHagan/IgorGame
+- In the top right corner of where the commits are shown, the settings can be found.
+- Clicked on setting and located pages.
+- Selected 'main' branch and deisnated the default directory as '/(root)'
+
+### Cloning My Repository
+- Locate My Repository via github : https://github.com/NyHagan/IgorGame
+- Click on the green 'code' button to create a local clone
+
+
+
+## Support
+
+For support, email nanaohagan@gmail.com 
+
+## Optimizations Roadmap
+
+- animations
+- new mechanics
+
+## Authors
+
+Nana Hagan
+- [@NyHagan](https://github.com/NyHagan)
+
+## Acknowledgements
+
+- Althaus Digital
+
