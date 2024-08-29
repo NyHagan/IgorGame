@@ -73,7 +73,7 @@ tests were done after every change, leading to the removal of several bugs
    **Solution:** Reset bluff-related properties at the end of each round to avoid affecting subsequent rounds.
 
 10. **Bug 10:** Game termination condition wasn’t clearly managed, and “Would you like to bluff?” persisted even when the game was over.  
-    **Solution:** Implemented an `IsGameOver` property in `GameService` to encapsulate and manage game termination.
+    **Solution:** Implemented an `IsGameOver` property to encapsulate and manage game termination.
 
 11. ** **Bug 11:** Game got stuck on the “Igor thinks you might use” screen.  
     **Solution:** Added `!= null` to the `if` condition to allow the transition to execute, fixing the issue.
